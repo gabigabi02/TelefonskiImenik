@@ -14,7 +14,7 @@ namespace TelefonskiImenik
 {
     public partial class Form5 : Form
     {
-        string path = "..\\..\\registracija.txt";
+        string path = "registracija.txt";
         public Form5()
         {
             InitializeComponent();
@@ -33,11 +33,12 @@ namespace TelefonskiImenik
             }
             if (textBoxKorisnickoIme.Text == "" || textBoxLozinka.Text == "" || textBoxPotvrdiLozinku.Text == "")
             {
+
                 MessageBox.Show("Nisu upisani svi traženi podatci!");
             }
             else
             {
-                StreamReader sr = new StreamReader(path,true);
+                StreamReader sr = new StreamReader(path);
                 string linija1 = sr.ReadLine();
                 while (linija1 != null)
                 {
@@ -65,6 +66,23 @@ namespace TelefonskiImenik
                     this.Close();
                 }
             }
+        }
+
+        private void Form5_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form4 Form4 = new Form4();
+            Form4.ShowDialog();
+            this.Close();
         }
     }
 }

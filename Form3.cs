@@ -30,5 +30,12 @@ namespace TelefonskiImenik
             form5.Show();
             this.Hide();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form2 Form2 = new Form2();
+            Form2.ShowDialog();
+            this.Close();
+        }
     }
 }

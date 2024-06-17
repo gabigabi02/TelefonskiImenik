@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TelefonskiImenik
 {
-    public partial class Form1 : Form
+    public partial class Form6 : Form
     {
-        int[] broj = new int[]
+       public static int[] broj = new int[]
 {
         0923662549,0945776612,0923590653,0970387996,0912043610,0935480791,0968217045,0943850162,0978704392,0985627104,
         0908375946,0916453829,0937104826,0921703584,0971468932,0953847206,0906358291,0987051364,0973265481,0954736190,
@@ -40,7 +40,7 @@ namespace TelefonskiImenik
         0947180543,0963015782,0985713064,0917845036,0928164075,0973058401,0935126740,0916378052,0947108236,0982514307
 
 };
-        string[] ime = new string[]
+        public static string[] ime = new string[]
         {
         "Ada", "Adrian", "Aleksandar", "Alen", "Ana", "Anđela",
         "Andrej", "Anita", "Anja", "Anton", "Antonija", "Antun",
@@ -71,64 +71,51 @@ namespace TelefonskiImenik
         "Vlatko", "Zdenka", "Zdravko", "Zlata", "Zlatan", "Zoran", "Zrinka", "Zvonimir",
         "Zvonko", "Zvjezdana", "Željka", "Željko",
         };
-        public void UpdateArrays(string[] updatedIme, int[] updatedBroj)
-        {
-            ime = updatedIme;
-            broj = updatedBroj;
-        }
-        public Form1()
+        int index = 191;
+        public Form6()
         {
             InitializeComponent();
-
-            
         }
-        private void label1_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-
+            Form1 form1 = new Form1();
+            form1.UpdateArrays(ime, broj);
+            form1.Show();
         }
-        public void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
+
+
+
+        private void button1_Click(object sender, EventArgs e)
         {
+            string unesenIme = textBox1.Text;
+            string unesenBroj = textBox2.Text;
 
+            if (int.TryParse(unesenBroj, out int unesenBroj2))
+            {
+                int insertIndex = Array.BinarySearch(ime, unesenIme);
+                if (insertIndex < 0)
+                    insertIndex = ~insertIndex; 
+
+                for (int i = index; i > insertIndex; i--)
+                {
+                    ime[i] = ime[i - 1];
+                    broj[i] = broj[i - 1];
+                }
+
+                ime[insertIndex] = unesenIme;
+                broj[insertIndex] = unesenBroj2;
+
+                index++;
+                textBox1.Clear();
+                textBox2.Clear();
+
+                label6.Text = "Korisnik je unesen!";
+
+
+            }
         }
-        
 
         private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        public void Form1_Load(object sender, EventArgs e)
-        {
-         
-      
-
-            for (int i = 0; i < Math.Min(broj.Length, ime.Length); i++)
-            {
-                ListViewItem kontakt = new ListViewItem((i + 1).ToString());
-                kontakt.SubItems.Add(broj[i].ToString());
-                kontakt.SubItems.Add(ime[i]);
-                listView1.Items.Add(kontakt);
-            }
-        }
-
-        public void button1_Click(object sender, EventArgs e)
-        {
-            int index = -1;
-            string unos = textBox1.Text;
-            index = Array.IndexOf(ime, unos);
-
-            if (index >= 0)
-            {
-                int broj1 = broj[index];
-                label3.Text = $"Broj korisnika '{unos}': {broj1}";
-            }
-            else
-            {
-                label3.Text = $"Korisnik '{unos}' ne postoji!";
-            }
-        }
-
-        private void label3_Click(object sender, EventArgs e)
         {
 
         }
@@ -138,11 +125,19 @@ namespace TelefonskiImenik
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Form6_Load(object sender, EventArgs e)
         {
-            Form3 form3 = new Form3();
-            form3.Show();
-            this.Hide();
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
