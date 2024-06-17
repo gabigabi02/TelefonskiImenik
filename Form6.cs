@@ -96,7 +96,6 @@ namespace TelefonskiImenik
                 if (insertIndex < 0)
                     insertIndex = ~insertIndex; 
 
-
                 for (int i = index; i > insertIndex; i--)
                 {
                     ime[i] = ime[i - 1];
